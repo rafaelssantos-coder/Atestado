@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atestado</title>
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+    <div class="menu">
+        <ul>
+            <li>
+                <a href="inicio.html" class="nav-link">
+                    <span class="item-icon"><i class='bx bx-square-small'></i></span>
+                    <span class="item-txt">Início</span>
+                </a>
+            </li>
+            <li>
+                <a href="guia.html" class="nav-link">
+                    <span class="item-icon"><i class='bx bx-home'></i></span>
+                    <span class="item-txt">Guia</span>
+                </a>
+            </li>
+            <li>
+                <a href="contatos.html" class="nav-link">
+                    <span class="item-icon"><i class='bx bx-contact-book'></i></span>
+                    <span class="item-txt">Contato</span>
+                </a>
+            </li>
+            <li>
+                <a href="atestado.html" class="nav-link">
+                    <span class="item-icon"><i class='bx bx-folder-up-arrow'></i></span>
+                    <span class="item-txt">Enviar atestado</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="conteudo">
+        <h2>Atestado</h2>
+        <br><form id="atestadoForm">
+            <div class="input-group">
+                <input type="text" id="nome" placeholder=" " required>
+                <label>Nome completo</label>
+            </div>
+            <div class="input-group">
+                <input type="text" id="matricula" placeholder=" " required>
+                <label>Matrícula</label>
+            </div>
+            <div class="input-group">
+                <input type="text" id="turma" placeholder=" " required>
+                <label>Código de turma</label>
+            </div>
+            <div class="input-group">
+                <input type="email" id="email" placeholder=" " required>
+                <label>Email institucional</label>
+            </div>
+            <div class="input-group">
+                <input type="date" id="inicio" placeholder=" " required>
+                <label>Data de início do atestado</label>
+            </div>
+            <div class="input-group">
+                <input type="date" id="fim" placeholder=" " required>
+                <label>Data de término do atestado</label>
+            </div>
+            <div class="input-group">
+                <input type="file" id="arquivo" required>
+                <label>Arquivo de atestado</label>
+            </div>
+            <button type="submit" class="enviar-btn">Enviar</button>
+        </form>
+        <p id="mensagem"></p>
+    </div>
+
+    <script>
+        const form = document.getElementById("atestadoForm");
+        const mensagem = document.getElementById("mensagem");
+
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const nome = document.getElementById("nome").value;
+            const matricula = document.getElementById("matricula").value;
+            const turma = document.getElementById("turma").value;
+            const email = document.getElementById("email").value;
+            const inicio = document.getElementById("inicio").value;
+            const fim = document.getElementById("fim").value;
+            const arquivo = document.getElementById("arquivo").files[0];
+
+            const nomeArquivo = arquivo ? arquivo.name : "Sem arquivo";
+
+            try {
+                const resposta = await fetch("https://api.sheetmonkey.io/form/eHYZuuAGq5QL9wAZuB2wpj", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        nome: nome,
+                        matricula: matricula,
+                        turma: turma,
+                        email: email,
+                        dataInicio: inicio,
+                        dataFim: fim,
+                        nomeArquivo: nomeArquivo
+                    })
+                });
+
+                if (resposta.ok) {
+                    mensagem.textContent = "Atestado enviado com sucesso!";
+                    mensagem.style.color = "green";
+                    form.reset();
+                } else {
+                    mensagem.textContent = "Erro ao enviar. Tente novamente.";
+                    mensagem.style.color = "red";
+                }
+            } catch (erro) {
+                mensagem.textContent = "Falha na conexão. Verifique sua internet.";
+                mensagem.style.color = "orange";
+            }
+        });
+    </script>
+
+</body>
+</html>
