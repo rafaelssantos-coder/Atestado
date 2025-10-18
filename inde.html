@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atestado</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-counteiner">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/SENAI_logo_2024.png" alt="SENAI">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="option-title">Tipo de acesso:</div>
+            <label class="radio-container">
+                <input type="radio" name="tipoUsuario" value="Aluno" checked />
+                <span class="radio-mark"></span>
+                Aluno
+            </label>
+            <br>
+            <label class="radio-container">
+                <input type="radio" name="tipoUsuario" value="Administrador" />
+                <span class="radio-mark"></span>
+                Administrador
+            </label>
+            <br><br>
+
+            <div class="input-group">
+                <input type="text" name="matricula" placeholder=" " required>
+                <label>Matrícula</label>
+            </div>
+            <div class="input-group">
+                <input type="password" name="senha" placeholder=" " required>
+                <label>Senha</label>
+            </div>
+
+            <div class="remember-forgot">
+                <label>
+                    <input type="checkbox"> Lembrar senha
+                </label>
+                <a href="page2.html">Esqueceu a senha?</a>
+            </div>
+
+            <button type="submit" class="login-btn"><a href="guia.html">Login</a></button>
+
+            <div class="register-link">
+                <p>Não tem cadastro? <a href="page3.html">Cadastre-se</a></p>
+            </div>
+        </form>
+    </div>
+
+<script>
+const endpointGet = "https://api.sheetmonkey.io/form/eeTzopuMPVBZ79HmcW71qo"; // Substitua pela URL da sua planilha
+
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const tipoUsuario = document.querySelector('input[name="tipoUsuario"]:checked').value;
+  const matricula = document.querySelector('input[name="matricula"]').value.trim();
+  const senha = document.querySelector('input[name="senha"]').value.trim();
+
+  try {
+    const res = await fetch(endpointGet);
+    const data = await res.json();
+
+    // SheetMonkey retorna dados no formato { data: [ {campo1:..., campo2:...}, ...] }
+    const registros = data.data || data;
+
+    const usuarioValido = registros.find(
+      (u) => u.tipoUsuario === tipoUsuario && u.matricula === matricula && u.senha === senha
+    );
+
+    if (usuarioValido) {
+      alert("Login realizado com sucesso!");
+      window.location.href = "guia.html"; // página após login
+    } else {
+      alert("Matrícula ou senha incorretas!");
+    }
+  } catch (erro) {
+    console.error("Erro ao validar login:", erro);
+    alert("Erro ao conectar com o servidor. Tente novamente.");
+  }
+});
+</script>
+</body>
+</html>
