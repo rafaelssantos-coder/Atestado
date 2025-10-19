@@ -28,9 +28,9 @@
   </div>
 
 <script>
-const endpointPost = "https://script.google.com/macros/s/AKfycbwEitMPUa6O1iEOXxBiqyr5bqy7y-8xYpT8tSDbaqhoPIemb1eVTL9TCfz1AnuZ12RW/exec";
+const endpointPost = "https://script.google.com/macros/s/AKfycbwT8Zww33-_71BmOaU8YuhY70PRmZd2q3jVd8WuwNL0bB8LLs5L4nF7QwpLzrBsxf4lNw/exec";
 
-document.getElementById('cadastroForm').addEventListener('submit', function(e) {
+document.getElementById('cadastroForm').addEventListener('submit', async function(e) {
   e.preventDefault();
 
   const data = {
@@ -39,23 +39,22 @@ document.getElementById('cadastroForm').addEventListener('submit', function(e) {
     senha: document.getElementById('senha').value.trim()
   };
 
-  fetch(endpointPost, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  })
-  .then(response => {
-    if (response.ok) {
-      alert('Cadastro enviado com sucesso!');
-      this.reset();
-    } else {
-      alert('Erro ao enviar o cadastro. Verifique o link do servidor.');
-    }
-  })
-  .catch(error => {
-    console.error('Erro ao enviar cadastro:', error);
-    alert('Erro ao conectar com o servidor.');
-  });
+  try {
+    const res = await fetch(endpointPost, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    const resposta = await res.json();
+
+    alert(resposta.mensagem);
+    if(resposta.status === "sucesso") this.reset();
+
+  } catch (erro) {
+    console.error("Erro ao enviar cadastro:", erro);
+    alert("Erro ao conectar com o servidor.");
+  }
 });
 </script>
 </body>
