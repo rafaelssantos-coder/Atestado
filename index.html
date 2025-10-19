@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atestado</title>
+  <title>Login</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -27,9 +27,10 @@
       <br><br>
 
       <div class="input-group">
-        <input type="text" name="matricula" placeholder=" " required>
-        <label>Matrícula</label>
+        <input type="email" name="email" placeholder=" " required>
+        <label>E-mail</label>
       </div>
+
       <div class="input-group">
         <input type="password" name="senha" placeholder=" " required>
         <label>Senha</label>
@@ -51,16 +52,16 @@
   </div>
 
 <script>
-const endpointGet = "https://script.google.com/macros/s/AKfycbwR45PXl6tP7UOKn8qMC8Nm6yAPrPAxj-xuD8etZk4oGadWsMfPAol8-kh6kZs_l4PW_Q/exec"; 
+const endpointGet = "https://script.google.com/macros/s/AKfycbwR45PXl6tP7UOKn8qMC8Nm6yAPrPAxj-xuD8etZk4oGadWsMfPAol8-kh6kZs_l4PW_Q/exec";
 
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const tipoUsuario = document.querySelector('input[name="tipoUsuario"]:checked').value;
-  const matricula = document.querySelector('input[name="matricula"]').value.trim();
+  const email = document.querySelector('input[name="email"]').value.trim();
   const senha = document.querySelector('input[name="senha"]').value.trim();
 
-  if (!matricula || !senha) {
+  if (!email || !senha) {
     alert("Preencha todos os campos!");
     return;
   }
@@ -70,15 +71,15 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     const data = await res.json();
     const registros = data.data || data;
 
-    const usuario = registros.find(u => u.matricula === matricula);
+    const usuario = registros.find(u => u.email?.toLowerCase() === email.toLowerCase());
 
     if (!usuario) {
-      alert("Matrícula não encontrada! Verifique se digitou corretamente.");
+      alert("E-mail não encontrado! Verifique se digitou corretamente.");
       return;
     }
 
     if (usuario.tipoUsuario !== tipoUsuario) {
-      alert(`Tipo de usuário incorreto! Esta matrícula pertence a um ${usuario.tipoUsuario}.`);
+      alert(`Tipo de usuário incorreto! Este e-mail pertence a um ${usuario.tipoUsuario}.`);
       return;
     }
 
