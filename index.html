@@ -1,57 +1,58 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atestado</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atestado</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="glass-counteiner">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/SENAI_logo_2024.png" alt="SENAI">
-        <h2>Login</h2>
+  <div class="glass-counteiner">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/SENAI_logo_2024.png" alt="SENAI">
+    <h2>Login</h2>
 
-        <form id="loginForm">
-            <div class="option-title">Tipo de acesso:</div>
-            <label class="radio-container">
-                <input type="radio" name="tipoUsuario" value="Aluno" checked>
-                <span class="radio-mark"></span>
-                Aluno
-            </label>
-            <br>
-            <label class="radio-container">
-                <input type="radio" name="tipoUsuario" value="Administrador">
-                <span class="radio-mark"></span>
-                Administrador
-            </label>
-            <br><br>
+    <form id="loginForm">
+      <div class="option-title">Tipo de acesso:</div>
+      <label class="radio-container">
+        <input type="radio" name="tipoUsuario" value="Aluno" checked>
+        <span class="radio-mark"></span>
+        Aluno
+      </label>
+      <br>
+      <label class="radio-container">
+        <input type="radio" name="tipoUsuario" value="Administrador">
+        <span class="radio-mark"></span>
+        Administrador
+      </label>
+      <br><br>
 
-            <div class="input-group">
-                <input type="text" name="matricula" placeholder=" " required>
-                <label>Matrícula</label>
-            </div>
-            <div class="input-group">
-                <input type="password" name="senha" placeholder=" " required>
-                <label>Senha</label>
-            </div>
+      <div class="input-group">
+        <input type="text" name="matricula" placeholder=" " required>
+        <label>Matrícula</label>
+      </div>
+      <div class="input-group">
+        <input type="password" name="senha" placeholder=" " required>
+        <label>Senha</label>
+      </div>
 
-            <div class="remember-forgot">
-                <label>
-                    <input type="checkbox"> Lembrar senha
-                </label>
-                <a href="page2.html">Esqueceu a senha?</a>
-            </div>
+      <div class="remember-forgot">
+        <label>
+          <input type="checkbox"> Lembrar senha
+        </label>
+        <a href="page2.html">Esqueceu a senha?</a>
+      </div>
 
-            <button type="submit" class="login-btn">Login</button>
+      <button type="submit" class="login-btn">Login</button>
 
-            <div class="register-link">
-                <p>Não tem cadastro? <a href="page3.html">Cadastre-se</a></p>
-            </div>
-        </form>
-    </div>
+      <div class="register-link">
+        <p>Não tem cadastro? <a href="page3.html">Cadastre-se</a></p>
+      </div>
+    </form>
+  </div>
 
 <script>
-const endpointGet = "https://script.google.com/macros/s/AKfycbyPIp_qMe5H-UYlsXfeTmeDkONJhGFRmoIe7NsY3mnbbbERHL50i4gYO50N6J9VMemR/exec"; 
+const endpointGet = ""; 
+
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -67,19 +68,28 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   try {
     const res = await fetch(endpointGet);
     const data = await res.json();
-
     const registros = data.data || data;
 
-    const usuarioValido = registros.find(
-      (u) => u.tipoUsuario === tipoUsuario && u.matricula === matricula && u.senha === senha
-    );
+    const usuario = registros.find(u => u.matricula === matricula);
 
-    if (usuarioValido) {
-      alert("Login realizado com sucesso!");
-      window.location.href = "inicio.html"; 
-    } else {
-      alert("Matrícula ou senha incorretas!");
+    if (!usuario) {
+      alert("Matrícula não encontrada! Verifique se digitou corretamente.");
+      return;
     }
+
+    if (usuario.tipoUsuario !== tipoUsuario) {
+      alert(`Tipo de usuário incorreto! Esta matrícula pertence a um ${usuario.tipoUsuario}.`);
+      return;
+    }
+
+    if (usuario.senha !== senha) {
+      alert("Senha incorreta! Tente novamente.");
+      return;
+    }
+
+    alert("Login realizado com sucesso!");
+    window.location.href = "inicio.html";
+
   } catch (erro) {
     console.error("Erro ao validar login:", erro);
     alert("Erro ao conectar com o servidor. Tente novamente.");
