@@ -34,13 +34,13 @@
   </div>
 
 <script>
-const endpointGet = "https://script.google.com/macros/s/AKfycbwEitMPUa6O1iEOXxBiqyr5bqy7y-8xYpT8tSDbaqhoPIemb1eVTL9TCfz1AnuZ12RW/exec";
+const endpointGet = "https://script.google.com/macros/s/AKfycbwT8Zww33-_71BmOaU8YuhY70PRmZd2q3jVd8WuwNL0bB8LLs5L4nF7QwpLzrBsxf4lNw/exec";
 
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const matricula = document.querySelector('input[name="matricula"]').value.trim();
-  const email = document.querySelector('input[name="email"]').value.trim();
+  const email = document.querySelector('input[name="email"]').value.trim().toLowerCase();
   const senha = document.querySelector('input[name="senha"]').value.trim();
 
   if (!matricula || !email || !senha) {
@@ -50,12 +50,11 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
   try {
     const res = await fetch(endpointGet);
-    const data = await res.json();
-    const registros = data.data || data;
+    const registros = await res.json();
 
     const usuario = registros.find(u =>
       u.matricula?.toString().trim() === matricula &&
-      u.email?.toLowerCase() === email.toLowerCase() &&
+      u.email?.toLowerCase() === email &&
       u.senha === senha
     );
 
@@ -63,18 +62,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
       alert("Login realizado com sucesso!");
       window.location.href = "inicio.html";
     } else {
-      const matriculaExiste = registros.find(u => u.matricula?.toString().trim() === matricula);
-      const emailExiste = registros.find(u => u.email?.toLowerCase() === email.toLowerCase());
-
-      if (!matriculaExiste && !emailExiste) {
-        alert("Matrícula e e-mail não encontrados!");
-      } else if (!matriculaExiste) {
-        alert("Matrícula não encontrada!");
-      } else if (!emailExiste) {
-        alert("E-mail não encontrado!");
-      } else {
-        alert("Senha incorreta!");
-      }
+      alert("Matrícula, e-mail ou senha incorretos!");
     }
 
   } catch (erro) {
