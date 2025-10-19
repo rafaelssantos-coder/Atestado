@@ -33,42 +33,6 @@
     </form>
   </div>
 
-<script>
-const endpointGet = "https://script.google.com/macros/s/AKfycbwT8Zww33-_71BmOaU8YuhY70PRmZd2q3jVd8WuwNL0bB8LLs5L4nF7QwpLzrBsxf4lNw/exec";
-
-document.getElementById("loginForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const matricula = document.querySelector('input[name="matricula"]').value.trim();
-  const email = document.querySelector('input[name="email"]').value.trim().toLowerCase();
-  const senha = document.querySelector('input[name="senha"]').value.trim();
-
-  if (!matricula || !email || !senha) {
-    alert("Preencha todos os campos!");
-    return;
-  }
-
-  try {
-    const res = await fetch(endpointGet);
-    const registros = await res.json();
-
-    const usuario = registros.find(u =>
-      u.matricula?.toString().trim() === matricula &&
-      u.email?.toLowerCase() === email &&
-      u.senha === senha
-    );
-
-    if (usuario) {
-      alert("Login realizado com sucesso!");
-      window.location.href = "inicio.html";
-    } else {
-      alert("Matrícula, e-mail ou senha incorretos!");
-    }
-
-  } catch (erro) {
-    console.error("Erro ao validar login:", erro);
-    alert("Erro ao conectar com o servidor.");
-  }
 });
 </script>
 </body>
