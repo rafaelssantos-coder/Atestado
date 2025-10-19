@@ -10,21 +10,21 @@
     <div class="glass-counteiner">
         <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/SENAI_logo_2024.png" alt="Logo SENAI">
         <h2>Cadastro</h2>
-        <form id="cadastroForm" >
+        <form id="cadastroForm">
             <div class="input-group">
-                <input type="text" id="tipoUsuario" placeholder=" " required>
+                <input type="text" id="tipoUsuario" name="tipoUsuario" placeholder=" " required>
                 <label>Tipo de usuário</label>
             </div>
             <div class="input-group">
-                <input type="text" id="matricula" placeholder=" " required>
+                <input type="text" id="matricula" name="matricula" placeholder=" " required>
                 <label>Matrícula</label>
             </div>
             <div class="input-group">
-                <input type="email" id="email" placeholder=" " required>
+                <input type="email" id="email" name="email" placeholder=" " required>
                 <label>E-mail</label>
             </div>
             <div class="input-group">
-                <input type="password" id="senha" placeholder=" " required>
+                <input type="password" id="senha" name="senha" placeholder=" " required>
                 <label>Senha</label>
             </div>
             <button type="submit" class="cadastro-btn">Cadastrar</button>
@@ -36,13 +36,13 @@ document.getElementById('cadastroForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
     const data = {
-        tipoUsuario: this.tipoUsuario.value,
-        matricula: this.matricula.value,
-        email: this.email.value,
-        senha: this.senha.value
+        tipoUsuario: document.getElementById('tipoUsuario').value,
+        matricula: document.getElementById('matricula').value,
+        email: document.getElementById('email').value,
+        senha: document.getElementById('senha').value
     };
 
-    fetch('https://api.sheetmonkey.io/form/eeTzopuMPVBZ79HmcW71qo', {
+    fetch('https://script.google.com/macros/s/AKfycbzuY-5ZzLD74y9tKS4MoqxnWyym6Zx0hD_6wnh3g3GFLxXF1qbsMjej0VfbpKuESBZnaA/exec', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -50,15 +50,17 @@ document.getElementById('cadastroForm').addEventListener('submit', function(e) {
     .then(response => {
         if (response.ok) {
             alert('Cadastro enviado com sucesso!');
-            this.reset();
+            document.getElementById('cadastroForm').reset();
         } else {
-            alert('Erro ao enviar o cadastro.');
+            alert('Erro ao enviar o cadastro. Verifique o link do servidor.');
         }
     })
-    .catch(error => alert('Erro: ' + error));
+    .catch(error => {
+        console.error('Erro ao enviar cadastro:', error);
+        alert('Erro ao conectar com o servidor.');
+    });
 });
 </script>
-
 
 </body>
 </html>
