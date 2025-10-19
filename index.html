@@ -16,22 +16,13 @@
         <input type="text" name="matricula" placeholder=" " required>
         <label>Matrícula</label>
       </div>
-
       <div class="input-group">
         <input type="email" name="email" placeholder=" " required>
         <label>E-mail</label>
       </div>
-
       <div class="input-group">
         <input type="password" name="senha" placeholder=" " required>
         <label>Senha</label>
-      </div>
-
-      <div class="remember-forgot">
-        <label>
-          <input type="checkbox"> Lembrar senha
-        </label>
-        <a href="page2.html">Esqueceu a senha?</a>
       </div>
 
       <button type="submit" class="login-btn">Login</button>
@@ -43,7 +34,7 @@
   </div>
 
 <script>
-const endpointGet = "https://script.google.com/macros/s/AKfycbyWGDxFba9YdifAyE79Gq8qbb_BHKbHebP4H681DE4p7hosWfkAlakChhDZ-GdEdwqlpQ/exec";
+const endpointGet = "COLE_AQUI_O_URL_DO_SEU_WEB_APP";
 
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -62,7 +53,6 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     const data = await res.json();
     const registros = data.data || data;
 
-
     const usuario = registros.find(u =>
       u.matricula?.toString().trim() === matricula &&
       u.email?.toLowerCase() === email.toLowerCase() &&
@@ -73,7 +63,6 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
       alert("Login realizado com sucesso!");
       window.location.href = "inicio.html";
     } else {
-      
       const matriculaExiste = registros.find(u => u.matricula?.toString().trim() === matricula);
       const emailExiste = registros.find(u => u.email?.toLowerCase() === email.toLowerCase());
 
