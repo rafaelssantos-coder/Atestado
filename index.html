@@ -12,20 +12,6 @@
     <h2>Login</h2>
 
     <form id="loginForm">
-      <div class="option-title">Tipo de acesso:</div>
-      <label class="radio-container">
-        <input type="radio" name="tipoUsuario" value="Aluno" checked>
-        <span class="radio-mark"></span>
-        Aluno
-      </label>
-      <br>
-      <label class="radio-container">
-        <input type="radio" name="tipoUsuario" value="Administrador">
-        <span class="radio-mark"></span>
-        Administrador
-      </label>
-      <br><br>
-
       <div class="input-group">
         <input type="text" name="matricula" placeholder=" " required>
         <label>Matrícula</label>
@@ -62,7 +48,6 @@ const endpointGet = "https://script.google.com/macros/s/AKfycbwsnGNCpgvTt46uiNDA
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const tipoUsuario = document.querySelector('input[name="tipoUsuario"]:checked').value;
   const matricula = document.querySelector('input[name="matricula"]').value.trim();
   const email = document.querySelector('input[name="email"]').value.trim();
   const senha = document.querySelector('input[name="senha"]').value.trim();
@@ -77,9 +62,8 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     const data = await res.json();
     const registros = data.data || data;
 
-  
+
     const usuario = registros.find(u =>
-      u.tipoUsuario?.toLowerCase() === tipoUsuario.toLowerCase() &&
       u.matricula?.toString().trim() === matricula &&
       u.email?.toLowerCase() === email.toLowerCase() &&
       u.senha === senha
@@ -89,24 +73,24 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
       alert("Login realizado com sucesso!");
       window.location.href = "inicio.html";
     } else {
-  
-      const emailExiste = registros.find(u => u.email?.toLowerCase() === email.toLowerCase());
+      
       const matriculaExiste = registros.find(u => u.matricula?.toString().trim() === matricula);
+      const emailExiste = registros.find(u => u.email?.toLowerCase() === email.toLowerCase());
 
-      if (!emailExiste && !matriculaExiste) {
+      if (!matriculaExiste && !emailExiste) {
         alert("Matrícula e e-mail não encontrados!");
-      } else if (!emailExiste) {
-        alert("E-mail não encontrado!");
       } else if (!matriculaExiste) {
         alert("Matrícula não encontrada!");
+      } else if (!emailExiste) {
+        alert("E-mail não encontrado!");
       } else {
-        alert("Senha ou tipo de usuário incorretos!");
+        alert("Senha incorreta!");
       }
     }
 
   } catch (erro) {
     console.error("Erro ao validar login:", erro);
-    alert("Erro ao conectar com o servidor. Verifique o link do Apps Script e tente novamente.");
+    alert("Erro ao conectar com o servidor.");
   }
 });
 </script>
