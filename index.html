@@ -27,6 +27,11 @@
       <br><br>
 
       <div class="input-group">
+        <input type="text" name="matricula" placeholder=" " required>
+        <label>Matrícula</label>
+      </div>
+
+      <div class="input-group">
         <input type="email" name="email" placeholder=" " required>
         <label>E-mail</label>
       </div>
@@ -58,10 +63,11 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const tipoUsuario = document.querySelector('input[name="tipoUsuario"]:checked').value;
+  const matricula = document.querySelector('input[name="matricula"]').value.trim();
   const email = document.querySelector('input[name="email"]').value.trim();
   const senha = document.querySelector('input[name="senha"]').value.trim();
 
-  if (!email || !senha) {
+  if (!matricula || !email || !senha) {
     alert("Preencha todos os campos!");
     return;
   }
@@ -71,29 +77,36 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     const data = await res.json();
     const registros = data.data || data;
 
-    const usuario = registros.find(u => u.email?.toLowerCase() === email.toLowerCase());
+  
+    const usuario = registros.find(u =>
+      u.tipoUsuario?.toLowerCase() === tipoUsuario.toLowerCase() &&
+      u.matricula?.toString().trim() === matricula &&
+      u.email?.toLowerCase() === email.toLowerCase() &&
+      u.senha === senha
+    );
 
-    if (!usuario) {
-      alert("E-mail não encontrado! Verifique se digitou corretamente.");
-      return;
+    if (usuario) {
+      alert("Login realizado com sucesso!");
+      window.location.href = "inicio.html";
+    } else {
+  
+      const emailExiste = registros.find(u => u.email?.toLowerCase() === email.toLowerCase());
+      const matriculaExiste = registros.find(u => u.matricula?.toString().trim() === matricula);
+
+      if (!emailExiste && !matriculaExiste) {
+        alert("Matrícula e e-mail não encontrados!");
+      } else if (!emailExiste) {
+        alert("E-mail não encontrado!");
+      } else if (!matriculaExiste) {
+        alert("Matrícula não encontrada!");
+      } else {
+        alert("Senha ou tipo de usuário incorretos!");
+      }
     }
-
-    if (usuario.tipoUsuario !== tipoUsuario) {
-      alert(`Tipo de usuário incorreto! Este e-mail pertence a um ${usuario.tipoUsuario}.`);
-      return;
-    }
-
-    if (usuario.senha !== senha) {
-      alert("Senha incorreta! Tente novamente.");
-      return;
-    }
-
-    alert("Login realizado com sucesso!");
-    window.location.href = "inicio.html";
 
   } catch (erro) {
     console.error("Erro ao validar login:", erro);
-    alert("Erro ao conectar com o servidor. Tente novamente.");
+    alert("Erro ao conectar com o servidor. Verifique o link do Apps Script e tente novamente.");
   }
 });
 </script>
