@@ -27,35 +27,3 @@
     </form>
   </div>
 
-<script>
-const endpointPost = "https://script.google.com/macros/s/AKfycbwT8Zww33-_71BmOaU8YuhY70PRmZd2q3jVd8WuwNL0bB8LLs5L4nF7QwpLzrBsxf4lNw/exec";
-
-document.getElementById('cadastroForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-
-  const data = {
-    matricula: document.getElementById('matricula').value.trim(),
-    email: document.getElementById('email').value.trim(),
-    senha: document.getElementById('senha').value.trim()
-  };
-
-  try {
-    const res = await fetch(endpointPost, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-
-    const resposta = await res.json();
-
-    alert(resposta.mensagem);
-    if(resposta.status === "sucesso") this.reset();
-
-  } catch (erro) {
-    console.error("Erro ao enviar cadastro:", erro);
-    alert("Erro ao conectar com o servidor.");
-  }
-});
-</script>
-</body>
-</html>
