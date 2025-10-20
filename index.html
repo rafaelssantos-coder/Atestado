@@ -41,15 +41,13 @@
       const email = document.getElementById("email").value.trim();
       const senha = document.getElementById("senha").value.trim();
 
-      // Substitua pelo ID real da sua planilha
-      const sheetID = "SEU_ID_DA_PLANILHA";
-      const sheetURL = `https://docs.google.com/spreadsheets/d/1Oecl6eThWHbXc6djclnZLfCk2sVsOUV8NmFp7MumAgA/gviz/tq?tqx=out:json`;
+      const sheetURL = "https://docs.google.com/spreadsheets/d/1Oecl6eThWHbXc6djclnZLfCk2sVsOUV8NmFp7MumAgA/gviz/tq?tqx=out:json";
 
       try {
         const response = await fetch(sheetURL);
         const text = await response.text();
 
-        // Remove o texto extra do Google antes de converter em JSON
+        // Remove o cabeçalho JS do Google antes de converter
         const json = JSON.parse(text.substr(47).slice(0, -2));
         const rows = json.table.rows;
 
@@ -58,9 +56,10 @@
         for (let i = 0; i < rows.length; i++) {
           const linha = rows[i].c;
 
-          const matriculaPlanilha = linha[0]?.v?.toString().trim();
-          const emailPlanilha = linha[1]?.v?.toString().trim();
-          const senhaPlanilha = linha[2]?.v?.toString().trim();
+          // Se a planilha tiver uma coluna automática de data, os índices mudam
+          const matriculaPlanilha = linha[1]?.v?.toString().trim(); // Coluna B
+          const emailPlanilha = linha[2]?.v?.toString().trim();     // Coluna C
+          const senhaPlanilha = linha[3]?.v?.toString().trim();     // Coluna D
 
           if (
             matricula === matriculaPlanilha &&
@@ -76,12 +75,12 @@
           alert("✅ Login realizado com sucesso!");
           window.location.href = "inicio.html";
         } else {
-          alert("❌ Dados incorretos. Verifique sua matrícula, e-mail ou senha.");
+          alert("❌ Dados incorretos. Verifique matrícula, e-mail ou senha.");
         }
 
       } catch (error) {
         console.error("Erro ao acessar a planilha:", error);
-        alert("⚠️ Erro ao conectar à planilha. Verifique se ela está publicada.");
+        alert("⚠️ Não foi possível conectar à planilha. Verifique se ela está publicada.");
       }
     });
   </script>
