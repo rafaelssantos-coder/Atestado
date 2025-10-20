@@ -33,38 +33,5 @@
     </form>
   </div>
 
-  <script>
-document.getElementById("loginForm").addEventListener("submit", async function(e) {
-  e.preventDefault();
-
-  const matricula = document.getElementById("matricula").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const senha = document.getElementById("senha").value.trim();
-
-  const scriptURL = "https://script.google.com/macros/s/AKfycbzQxBWGHPFoqsDNpAkJNCF7h4qcKhN2flITjBkufYpKXhDYxRpy5kDdKZSA2YFEzgks/exec"; 
-
-  try {
-    const response = await fetch(scriptURL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ matricula, email, senha })
-    });
-
-    const data = await response.json();
-
-    if (data.sucesso) {
-      alert("✅ Login realizado com sucesso!");
-      window.location.href = "inicio.html";
-    } else {
-      alert("❌ Matrícula, e-mail ou senha incorretos!");
-    }
-
-  } catch (error) {
-    console.error("Erro:", error);
-    alert("⚠️ Erro ao conectar com o servidor.");
-  }
-});
-</script>
-
 </body>
 </html>
