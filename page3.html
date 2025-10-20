@@ -48,7 +48,12 @@
         if (response.ok) {
           alert("✅ Cadastro realizado com sucesso!");
           document.getElementById("cadastroForm").reset();
-          window.location.href = "login.html";
+
+          // 🔄 Redireciona com leve atraso para evitar erro
+          setTimeout(() => {
+            window.location.href = "login.html";
+          }, 300);
+
         } else {
           alert("❌ Erro ao enviar dados. Tente novamente.");
         }
