@@ -13,15 +13,15 @@
 
     <form id="loginForm">
       <div class="input-group">
-        <input type="text" id="matricula" name="matricula" placeholder=" " required>
+        <input type="text" id="matricula" placeholder=" " required>
         <label>Matrícula</label>
       </div>
       <div class="input-group">
-        <input type="email" id="email" name="email" placeholder=" " required>
+        <input type="email" id="email" placeholder=" " required>
         <label>E-mail</label>
       </div>
       <div class="input-group">
-        <input type="password" id="senha" name="senha" placeholder=" " required>
+        <input type="password" id="senha" placeholder=" " required>
         <label>Senha</label>
       </div>
 
@@ -34,53 +34,33 @@
   </div>
 
   <script>
-    document.getElementById("loginForm").addEventListener("submit", async function(e) {
+    document.getElementById("loginForm").addEventListener("submit", async function (e) {
       e.preventDefault();
 
       const matricula = document.getElementById("matricula").value.trim();
       const email = document.getElementById("email").value.trim();
       const senha = document.getElementById("senha").value.trim();
 
-      const sheetURL = "https://docs.google.com/spreadsheets/d/1Oecl6eThWHbXc6djclnZLfCk2sVsOUV8NmFp7MumAgA/gviz/tq?tqx=out:json";
+      const url = "https://script.google.com/macros/s/AKfycbwD9RwRaNq66YzbDRKqvSCLOmozE8UiazQdiJ4nWJaQa5JH1RX1tRdB2PbKO7UpCaDT/exec";
 
       try {
-        const response = await fetch(sheetURL);
-        const text = await response.text();
+        const response = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ matricula, email, senha })
+        });
 
-        // Remove o cabeçalho JS do Google antes de converter
-        const json = JSON.parse(text.substr(47).slice(0, -2));
-        const rows = json.table.rows;
+        const resultado = await response.json();
 
-        let loginValido = false;
-
-        for (let i = 0; i < rows.length; i++) {
-          const linha = rows[i].c;
-
-          // Se a planilha tiver uma coluna automática de data, os índices mudam
-          const matriculaPlanilha = linha[1]?.v?.toString().trim(); // Coluna B
-          const emailPlanilha = linha[2]?.v?.toString().trim();     // Coluna C
-          const senhaPlanilha = linha[3]?.v?.toString().trim();     // Coluna D
-
-          if (
-            matricula === matriculaPlanilha &&
-            email === emailPlanilha &&
-            senha === senhaPlanilha
-          ) {
-            loginValido = true;
-            break;
-          }
-        }
-
-        if (loginValido) {
-          alert("✅ Login realizado com sucesso!");
+        if (resultado.sucesso) {
+          alert("✅ " + resultado.mensagem);
           window.location.href = "inicio.html";
         } else {
-          alert("❌ Dados incorretos. Verifique matrícula, e-mail ou senha.");
+          alert("❌ " + resultado.mensagem);
         }
 
       } catch (error) {
-        console.error("Erro ao acessar a planilha:", error);
-        alert("⚠️ Não foi possível conectar à planilha. Verifique se ela está publicada.");
+        alert("⚠️ Erro ao conectar ao servidor: " + error);
       }
     });
   </script>
