@@ -10,6 +10,7 @@
   <div class="glass-counteiner">
     <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/SENAI_logo_2024.png" alt="Logo SENAI">
     <h2>Cadastro</h2>
+
     <form id="cadastroForm">
       <div class="input-group">
         <input type="text" id="matricula" name="matricula" placeholder=" " required>
@@ -27,3 +28,34 @@
     </form>
   </div>
 
+  <script>
+    document.getElementById("cadastroForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const data = {
+        matricula: document.getElementById("matricula").value,
+        email: document.getElementById("email").value,
+        senha: document.getElementById("senha").value
+      };
+
+      try {
+        const response = await fetch("https://api.sheetmonkey.io/form/eeTzopuMPVBZ79HmcW71qo", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          alert("✅ Cadastro realizado com sucesso!");
+          document.getElementById("cadastroForm").reset();
+          window.location.href = "login.html";
+        } else {
+          alert("❌ Erro ao enviar dados. Tente novamente.");
+        }
+      } catch (error) {
+        alert("⚠️ Erro de conexão. Verifique sua internet.");
+      }
+    });
+  </script>
+</body>
+</html>
