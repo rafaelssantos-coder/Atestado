@@ -34,35 +34,37 @@
   </div>
 
   <script>
-    document.getElementById("loginForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
+document.getElementById("loginForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
 
-      const matricula = document.getElementById("matricula").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const senha = document.getElementById("senha").value.trim();
+  const matricula = document.getElementById("matricula").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const senha = document.getElementById("senha").value.trim();
 
-      const url = "https://script.google.com/macros/s/AKfycbzQxBWGHPFoqsDNpAkJNCF7h4qcKhN2flITjBkufYpKXhDYxRpy5kDdKZSA2YFEzgks/exec";
+  const scriptURL = "https://script.google.com/macros/s/AKfycbzQxBWGHPFoqsDNpAkJNCF7h4qcKhN2flITjBkufYpKXhDYxRpy5kDdKZSA2YFEzgks/exec"; 
 
-      try {
-        const response = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ matricula, email, senha })
-        });
-
-        const resultado = await response.json();
-
-        if (resultado.sucesso) {
-          alert("✅ " + resultado.mensagem);
-          window.location.href = "inicio.html";
-        } else {
-          alert("❌ " + resultado.mensagem);
-        }
-
-      } catch (error) {
-        alert("⚠️ Erro ao conectar ao servidor: " + error);
-      }
+  try {
+    const response = await fetch(scriptURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ matricula, email, senha })
     });
-  </script>
+
+    const data = await response.json();
+
+    if (data.sucesso) {
+      alert("✅ Login realizado com sucesso!");
+      window.location.href = "inicio.html";
+    } else {
+      alert("❌ Matrícula, e-mail ou senha incorretos!");
+    }
+
+  } catch (error) {
+    console.error("Erro:", error);
+    alert("⚠️ Erro ao conectar com o servidor.");
+  }
+});
+</script>
+
 </body>
 </html>
