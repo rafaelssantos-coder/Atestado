@@ -1,23 +1,19 @@
 @charset "UTF-8";
-/* Define a codificação de caracteres como UTF-8 para suportar acentuação */
 
-/* Reset de margens e preenchimentos padrão */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Define altura total para html e body */
 html, body {
     height: 100%;
 }
 
-/* Estilização geral do corpo da página */
 body {
     display: flex;
-    align-items: center;      /* Centraliza verticalmente */
-    justify-content: center;  /* Centraliza horizontalmente */
+    align-items: center;      /* centraliza verticalmente */
+    justify-content: center;  /* centraliza horizontalmente */
     background-color: #fff;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: justify;
@@ -25,24 +21,25 @@ body {
     margin: 0;
 }
 
-/* Estilo do menu lateral fixo */
+
+
+
+/* MENU LATERAL */
 .menu {
     width: 70px;
-    height: 100%;
+    height: 100%; /* ocupa toda altura */
     background-color: #11228d;
     padding: 20px;
     color: #fff;
     overflow: hidden;
     transition: width 0.75s ease;
-    flex-shrink: 0;
+    flex-shrink: 0; /* não encolhe */
 }
 
-/* Expande o menu ao passar o mouse */
 .menu:hover {
     width: 200px;
 }
 
-/* Lista de navegação no menu */
 .menu ul {
     list-style-type: none;
     padding: 0;
@@ -52,20 +49,17 @@ body {
     row-gap: 1rem;
 }
 
-/* Estilo dos itens do menu */
 .menu li {
-    padding: 10px;
+    padding: 10px 10px;
     border-radius: 5rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-/* Destaque ao passar o mouse nos itens */
 .menu li:hover {
     background-color: #3889f3;
 }
 
-/* Link de navegação com ícone e texto */
 .nav-link {
     display: inline-flex;
     column-gap: 1rem;
@@ -73,12 +67,10 @@ body {
     text-decoration: none;
 }
 
-/* Espaçamento do texto ao lado do ícone */
 .item-txt {
     padding-left: 0.5rem;
 }
 
-/* Estilo de bloco informativo adicional */
 .infocontato {
     height: 380px;
     width: 100px;
@@ -87,10 +79,11 @@ body {
     background: #11228d;
 }
 
-/* Área principal de conteúdo */
+/* CONTEÚDO */
 .conteudo {
-    margin-top: 20px;
+    margin-top: 20px; /* mais próximo do topo */
     width: 700px;
+   
     padding: 40px;
     background-color: #ffffff;
     color: #111;
@@ -98,27 +91,22 @@ body {
     border-radius: 0;
     overflow: visible;
     z-index: 1;
-    max-width: 90%;
+
+    max-width: 90%; /* para ajustar bem em telas menores */
     margin: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* vertical */
+    align-items: center; /* horizontal */
     min-height: calc(100vh - 40px);
-    text-align: center;
+    text-align: center; /* opcional: centraliza textos dentro do form */
 }
-
-/* Destaque para subtítulos ou alertas */
-.conteudo h4 {
+.conteudo h4{
     color: rgb(142, 0, 0);
 }
-
-/* Correção de seletor com erro de digitação */
-.conteudo ul {
+.conteufo ul{
     align-items: center;
 }
-
-/* Alinhamento de texto dos itens de lista */
-.conteudo li {
+.conteudo li{
     text-align: left;
 }
