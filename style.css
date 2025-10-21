@@ -1,41 +1,36 @@
 @charset "UTF-8";
-/* Define a codificação de caracteres como UTF-8 */
 
-/* Reset e estilo base */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-/* Estilização do corpo da página */
 body {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    background: url(https://png.pngtree.com/background/20210717/original/pngtree-black-and-white-high-end-line-network-technology-background-picture-image_1434401.jpg) no-repeat;
-    background-size: 100% 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: url("https://png.pngtree.com/background/20210717/original/pngtree-black-and-white-high-end-line-network-technology-background-picture-image_1434401.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
-/* Container com efeito de vidro */
 .glass-counteiner {
-    position: relative;
-    width: 580px;
-    padding: 40px;
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    background: rgba(70, 80, 167, 0.092);
-    border: 1px solid rgba(110, 158, 255, 0.167);
-    box-shadow: 0 25px 45px rgba(0, 0, 0, 0);
-    z-index: 10;
-    overflow: hidden;
-}
+  position: relative;
+  width: 580px;
+  padding: 40px;
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  background: rgba(70, 80, 167, 0.092);
+  border: 1px solid rgba(110, 158, 255, 0.167);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0);
+  z-index: 10;
+  overflow: hidden;
 
-/* Efeito de brilho ao passar o mouse */
-.glass-counteiner::before {
+  &::before {
     content: '';
     position: absolute;
     top: 0;
@@ -46,13 +41,13 @@ body {
     transform: skewX(-15deg);
     transition: 0.5s;
     pointer-events: none;
-}
-.glass-counteiner:hover::before {
-    left: 120%;
-}
+  }
 
-/* Título do formulário */
-.glass-counteiner h2 {
+  &:hover::before {
+    left: 120%;
+  }
+
+  h2 {
     color: #002333;
     font-size: 28px;
     font-weight: 600;
@@ -60,14 +55,14 @@ body {
     letter-spacing: 1px;
     margin-bottom: 40px;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0);
+  }
 }
 
-/* Grupo de entrada de dados */
 .input-group {
-    position: relative;
-    margin-bottom: 30px;
-}
-.input-group input {
+  position: relative;
+  margin-bottom: 30px;
+
+  input {
     width: 100%;
     padding: 15px 20px;
     background: rgba(255, 255, 255, 0.2);
@@ -78,17 +73,29 @@ body {
     color: #000;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
-}
-.input-group input::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-.input-group input:focus {
-    background: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
 
-/* Label flutuante */
-.input-group label {
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    &:focus {
+      background: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    &:focus + label,
+    &:not(:placeholder-shown) + label {
+      top: 0;
+      left: 15px;
+      font-size: 12px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 2px 8px;
+      border-radius: 10px;
+      color: #0b0f41;
+    }
+  }
+
+  label {
     position: absolute;
     top: 50%;
     left: 20px;
@@ -97,113 +104,117 @@ body {
     font-size: 16px;
     pointer-events: none;
     transition: all 0.3s ease;
-}
-.input-group input:focus + label,
-.input-group input:not(:placeholder-shown) + label {
-    top: 0;
-    left: 15px;
-    font-size: 12px;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 2px 8px;
-    border-radius: 10px;
-    color: #0b0f41;
+  }
 }
 
-/* Seção de lembrar e recuperar senha */
 .remember-forgot {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-    font: 14px;
-    color: rgba(23, 32, 51, 0.8);
-}
-.remember-forgot label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  font: 14px;
+  color: rgba(23, 32, 51, 0.8);
+
+  label {
     font-size: 12px;
     display: flex;
     align-items: center;
     cursor: pointer;
-}
-.remember-forgot input {
+  }
+
+  input {
     margin-right: 8px;
     accent-color: #031035;
-}
-.remember-forgot a {
+  }
+
+  a {
     font-size: 12px;
     color: #05072e;
     text-decoration: none;
     transition: all 0.3s ease;
-}
-.remember-forgot a:hover {
-    text-decoration: underline;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
-/* Botão de login */
-.login-btn {
-    width: 100%;
-    padding: 15px;
-    background: #11228d;
-    border: none;
-    outline: none;
-    border-radius: 35px;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0.5px 5px #0b137f3f;
-}
-.login-btn:hover {
+.login-btn,
+.cadastro-btn {
+  width: 100%;
+  padding: 15px;
+  background: #11228d;
+  border: none;
+  outline: none;
+  border-radius: 35px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0.5px 5px #0b137f3f;
+
+  &:hover {
     transform: translateY(-3px);
     box-shadow: rgba(0, 0, 0, 0.2);
-}
+  }
 
-/* Link para cadastro */
-.register-link {
-    text-align: center;
-    margin-top: 25px;
-    color: rgba(8, 38, 103, 0.8);
-    font-size: 14px;
-}
-.login-btn a {
+  a {
     text-decoration: none;
     color: #fff;
+  }
 }
-.register-link a {
+
+.register-link {
+  text-align: center;
+  margin-top: 25px;
+  color: rgba(8, 38, 103, 0.8);
+  font-size: 14px;
+
+  a {
     color: #060f3b;
     font-weight: 600;
     text-decoration: none;
     transition: all 0.3s ease;
-}
-.register-link a:hover {
-    text-decoration: underline;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
-/* Título de opções (ex: tipo de usuário) */
 .option-title {
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #0b0f41;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #0b0f41;
 }
 
-/* Estilização de botão de rádio personalizado */
 .radio-container {
-    display: block;
-    position: relative;
-    padding-left: 30px;
-    margin-left: 12px;
-    cursor: pointer;
-    user-select: none;
-    transition: all 0.5s ease;
-}
-.radio-container input {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-left: 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.5s ease;
+
+  input {
     position: relative;
     opacity: 0;
     cursor: pointer;
     height: 0;
     width: 0;
-}
-.radio-mark {
+
+    &:checked ~ .radio-mark {
+      animation: pulse 0.5s;
+
+      &::after {
+        display: block;
+      }
+    }
+  }
+
+  .radio-mark {
     position: absolute;
     top: 0;
     left: 0;
@@ -213,53 +224,31 @@ body {
     border: 2px solid #ccc;
     transition: all 0.5s ease;
     border-radius: 50px;
-}
-.radio-container:hover input ~ .radio-mark {
+
+    &::after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 4px;
+      top: 4px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgb(80, 108, 247);
+    }
+  }
+
+  &:hover input ~ .radio-mark {
     background-color: #0fbcf9;
     border-color: #eee;
-}
-.radio-mark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-.radio-container input:checked ~ .radio-mark:after {
-    display: block;
-}
-.radio-container .radio-mark:after {
-    left: 4px;
-    top: 4px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgb(80, 108, 247);
-}
-.radio-container input:checked ~ .radio-mark {
-    animation: pulse 0.5s;
+  }
 }
 
-/* Animação de seleção do botão de rádio */
 @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-}
-
-/* Botão de cadastro */
-.cadastro-btn {
-    width: 100%;
-    padding: 15px;
-    background: #11228d;
-    border: none;
-    outline: none;
-    border-radius: 35px;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0.5px 5px #0b137f3f;
-}
-.cadastro-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: rgba(0, 0, 0, 0.2);
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }
