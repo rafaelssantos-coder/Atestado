@@ -1,7 +1,5 @@
 @charset "UTF-8";
-/* Define a codificação de caracteres como UTF-8 */
 
-/* Reset básico e configuração de layout */
 * {
     margin: 0;
     padding: 0;
@@ -14,8 +12,8 @@ html, body {
 
 body {
     display: flex;
-    align-items: center;      /* Centraliza verticalmente */
-    justify-content: center;  /* Centraliza horizontalmente */
+    align-items: center;      /* centraliza verticalmente */
+    justify-content: center;  /* centraliza horizontalmente */
     background-color: #fff;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: justify;
@@ -23,20 +21,21 @@ body {
     margin: 0;
 }
 
+
 /* MENU LATERAL */
 .menu {
     width: 70px;
-    height: 100%;             /* Ocupa toda a altura da tela */
+    height: 100%; /* ocupa toda altura */
     background-color: #11228d;
     padding: 20px;
     color: #fff;
     overflow: hidden;
     transition: width 0.75s ease;
-    flex-shrink: 0;           /* Impede que o menu encolha */
+    flex-shrink: 0; /* não encolhe */
 }
 
 .menu:hover {
-    width: 200px;             /* Expande o menu ao passar o mouse */
+    width: 200px;
 }
 
 ul {
@@ -45,18 +44,18 @@ ul {
     margin: 0;
     display: flex;
     flex-direction: column;
-    row-gap: 1rem;            /* Espaçamento entre os itens */
+    row-gap: 1rem;
 }
 
 li {
-    padding: 10px;
+    padding: 10px 10px;
     border-radius: 5rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 li:hover {
-    background-color: #3889f3; /* Destaque ao passar o mouse */
+    background-color: #3889f3;
 }
 
 .nav-link {
@@ -70,7 +69,6 @@ li:hover {
     padding-left: 0.5rem;
 }
 
-/* Estilo adicional para área de contato */
 .infocontato {
     height: 380px;
     width: 100px;
@@ -79,9 +77,9 @@ li:hover {
     background: #11228d;
 }
 
-/* CONTEÚDO PRINCIPAL */
+/* CONTEÚDO */
 .conteudo {
-    margin-top: 20px;
+    margin-top: 20px; /* mais próximo do topo */
     width: 700px;
     margin: auto;
     padding: 40px;
@@ -92,24 +90,24 @@ li:hover {
     overflow: visible;
     z-index: 1;
 
+    /* Centraliza o form */
     display: flex;
     flex-direction: column;
-    justify-content: center;  /* Centraliza verticalmente */
-    align-items: center;      /* Centraliza horizontalmente */
+    justify-content: center; /* vertical */
+    align-items: center; /* horizontal */
     min-height: calc(100vh - 40px);
-    text-align: center;
+    text-align: center; /* opcional: centraliza textos dentro do form */
 }
-
-.conteudo h4 {
-    color: rgb(142, 0, 0);     /* Destaque para avisos ou alertas */
+.conteudo h4{
+    color: rgb(142, 0, 0);
 }
 
 .conteudo form {
     width: 100%;
-    max-width: 400px;          /* Limita a largura do formulário */
+    max-width: 400px; /* limita a largura do form */
 }
 
-/* CAMPOS DE ENTRADA */
+/* INPUTS */
 .input-group {
     position: relative;
     margin-bottom: 30px;
@@ -124,4 +122,53 @@ li:hover {
     border-radius: 35px;
     font-size: 16px;
     color: #000;
-    box-shadow: 0 5px 15px rgba(0, 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.input-group input::placeholder {
+    color: rgba(25, 50, 209, 0.7);
+}
+
+.input-group label {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    color: #002333;
+    font-size: 16px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+    top: 0;
+    left: 15px;
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 2px 8px;
+    border-radius: 10px;
+    color: #0b0f41;
+}
+
+/* BOTÃO ENVIAR */
+.enviar-btn {
+    width: 100%;
+    padding: 15px;
+    background: #11228d;
+    border: none;
+    outline: none;
+    border-radius: 35px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.enviar-btn:hover {
+    background: rgba(17, 39, 183, 0.4);
+    transform: translateY(-3px);
+    box-shadow: rgba(0, 0, 0, 0.2);
+}
