@@ -1,10 +1,17 @@
 <!DOCTYPE html>
+<!-- Documento HTML5 -->
+
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <!-- Suporte a acentuação e caracteres especiais -->
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Responsividade em dispositivos móveis -->
+
   <title>Login</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Estilos externos -->
 </head>
 <body>
   <div class="glass-counteiner">
@@ -12,14 +19,18 @@
     <h2>Login</h2>
 
     <form id="loginForm">
+      <!-- Formulário de autenticação -->
+
       <div class="input-group">
         <input type="text" id="matricula" placeholder=" " required>
         <label>Matrícula</label>
       </div>
+
       <div class="input-group">
         <input type="email" id="email" placeholder=" " required>
         <label>E-mail</label>
       </div>
+
       <div class="input-group">
         <input type="password" id="senha" placeholder=" " required>
         <label>Senha</label>
@@ -32,30 +43,78 @@
       </div>
 
       <p id="mensagemErro" style="color: red; display: none; margin-top: 10px;"></p>
+      <!-- Mensagem de erro exibida em caso de falha no login -->
     </form>
   </div>
 
   <script>
+    // Intercepta o envio do formulário
     document.getElementById("loginForm").addEventListener("submit", function(event) {
       event.preventDefault(); 
 
+      // Captura os valores dos campos
       const matricula = document.getElementById("matricula").value.trim();
       const email = document.getElementById("email").value.trim();
       const senha = document.getElementById("senha").value.trim();
       const mensagemErro = document.getElementById("mensagemErro");
 
-      
+      // Credenciais fixas para validação
       const matriculaValida = "0001159483";
       const emailValido = "0001159483@senaimgaluno.com.br";
       const senhaValida = "123456";
 
-      if (matricula === matriculaValida && email === emailValido && senha === senhaValida) {
-       
-        window.location.href = "inicio.html";
-      } else {
-       
-        mensagemErro.textContent = "Matrícula, e-mail ou senha incorretos.";
+      // Verificações de campos vazios
+      if (!matricula) {
+        mensagemErro.textContent = "Por favor, informe sua matrícula.";
         mensagemErro.style.display = "block";
+        return;
+      }
+      if (!email) {
+        mensagemErro.textContent = "Por favor, informe seu e-mail.";
+        mensagemErro.style.display = "block";
+        return;
+      }
+      if (!senha) {
+        mensagemErro.textContent = "Por favor, informe sua senha.";
+        mensagemErro.style.display = "block";
+        return;
+      }
+
+      // Verificações específicas de erro
+      if (matricula !== matriculaValida && email === emailValido && senha === senhaValida) {
+        mensagemErro.textContent = "Matrícula incorreta.";
+        mensagemErro.style.display = "block";
+      } 
+      else if (matricula === matriculaValida && email !== emailValido && senha === senhaValida) {
+        mensagemErro.textContent = "E-mail incorreto.";
+        mensagemErro.style.display = "block";
+      } 
+      else if (matricula === matriculaValida && email === emailValido && senha !== senhaValida) {
+        mensagemErro.textContent = "Senha incorreta.";
+        mensagemErro.style.display = "block";
+      } 
+      else if (matricula !== matriculaValida && email !== emailValido && senha !== senhaValida) {
+        mensagemErro.textContent = "Todos os dados estão incorretos.";
+        mensagemErro.style.display = "block";
+      }
+      else if (matricula !== matriculaValida && email !== emailValido) {
+        mensagemErro.textContent = "Matrícula e e-mail incorretos.";
+        mensagemErro.style.display = "block";
+      } 
+      else if (matricula !== matriculaValida && senha !== senhaValida) {
+        mensagemErro.textContent = "Matrícula e senha incorretas.";
+        mensagemErro.style.display = "block";
+      } 
+      else if (email !== emailValido && senha !== senhaValida) {
+        mensagemErro.textContent = "E-mail e senha incorretos.";
+        mensagemErro.style.display = "block";
+      } 
+      else if (matricula === matriculaValida && email === emailValido && senha === senhaValida) {
+        window.location.href = "inicio.html"; // Redireciona em caso de sucesso
+      } 
+      else {
+        mensagemErro.textContent = "Erro desconhecido. Verifique suas informações.";
+        mensagemErro.style.display = "block"; // Exibe mensagem de erro genérica
       }
     });
   </script>
