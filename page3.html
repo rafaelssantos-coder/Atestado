@@ -6,7 +6,6 @@
   <title>Cadastro</title>
   <link rel="stylesheet" href="style.css">
   <style>
-   
     .mensagem-sucesso {
       display: none;
       background-color: #4CAF50;
@@ -45,7 +44,7 @@
       <button type="submit" class="cadastro-btn">Cadastrar</button>
     </form>
 
-    <p id="mensagemSucesso" class="mensagem-sucesso">✅ Cadastro realizado com sucesso! Redirecionando...</p>
+    <p id="mensagemSucesso" class="mensagem-sucesso">✅ Cadastro realizado com sucesso!</p>
   </div>
 
   <script>
@@ -68,15 +67,8 @@
         });
 
         if (response.ok) {
-          
           mensagemSucesso.style.display = "block";
-
           document.getElementById("cadastroForm").reset();
-
-      
-          setTimeout(() => {
-            window.location.href = "https://rafaelssantos-coder.github.io/Atestado/";
-          }, 2000);
         } else {
           alert("❌ Erro ao enviar dados. Tente novamente.");
         }
