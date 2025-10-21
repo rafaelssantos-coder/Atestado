@@ -30,8 +30,34 @@
       <div class="register-link">
         <p>Não tem cadastro? <a href="page3.html">Cadastre-se</a></p>
       </div>
+
+      <p id="mensagemErro" style="color: red; display: none; margin-top: 10px;"></p>
     </form>
   </div>
 
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault(); 
+
+      const matricula = document.getElementById("matricula").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const senha = document.getElementById("senha").value.trim();
+      const mensagemErro = document.getElementById("mensagemErro");
+
+      
+      const matriculaValida = "0001159483";
+      const emailValido = "0001159483@senaimgaluno.com.br";
+      const senhaValida = "123456";
+
+      if (matricula === matriculaValida && email === emailValido && senha === senhaValida) {
+       
+        window.location.href = "inicio.html";
+      } else {
+       
+        mensagemErro.textContent = "Matrícula, e-mail ou senha incorretos.";
+        mensagemErro.style.display = "block";
+      }
+    });
+  </script>
 </body>
 </html>
