@@ -109,3 +109,24 @@ body {
     }
   }
 }
+ul li {
+            margin-bottom: 10px;
+        }
+
+        /* Subtópicos de atenção */
+        ul ul {
+            list-style: none;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            padding-left: 25px;
+        }
+
+        ul ul li {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 8px 10px;
+            border-radius: 5px;
+            color: #856404;
+            font-weight: 600;
+            margin-top: 5px;
+        }
